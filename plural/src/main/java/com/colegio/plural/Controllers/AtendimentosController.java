@@ -1,5 +1,22 @@
 package com.colegio.plural.controllers;
 
+import java.util.List;
+
+import org.hibernate.service.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.colegio.plural.models.Atendimentos;
+import com.colegio.plural.repositories.AtendimentosRepository;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 @RestController
 @RequestMapping("/atendimentos")
 @CrossOrigin(origins = "*")
@@ -27,20 +44,12 @@ public class AtendimentosController {
 
     // EDITAR
     @PutMapping("/{id}")
-    public Atendimentos editar(
-            @PathVariable Integer id,
-            @RequestBody Atendimentos dados) {
+public Atendimentos editar(
+        @PathVariable Integer id,
+        @RequestBody Atendimentos dados) {
 
-        Atendimentos atendimentos = repository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Atendimento não encontrado"));
-
-        atendimentos.setPsicologo_id(dados.getPsicologo_id());
-        atendimentos.setDataHora(dados.getDataHora());
-        atendimentos.setSala(dados.getSala());
-
-        return repository.save(atendimentos);
-    }
+    return Service.editar(id, dados);
+}
 
     // EXCLUIR
     @DeleteMapping("/{id}")
@@ -52,7 +61,7 @@ public class AtendimentosController {
     // LISTAR
     @GetMapping
     public List<Atendimentos> listar() {
-        return repository.findByData_atendimento();
+        return repository.findByDataAtendimento();
     }
 
 }

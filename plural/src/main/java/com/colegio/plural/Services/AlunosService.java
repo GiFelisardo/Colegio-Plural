@@ -1,5 +1,10 @@
 package com.colegio.plural.services;
 
+@Service
+public class AlunosService{
+    @Autowired
+    private AlunosRepository repository;
+    
 public Alunos cadastrar(Alunos alunos) {
         // Verifica se já existe um alunos com esse nome
         if (alunosRepository.existsByNome(alunos.getNome())) {
@@ -25,3 +30,4 @@ public boolean delete(Integer id) {
 public Alunos buscarAlunos(Integer id) {
         return alunosRepository.findById(id).get();
     }
+}

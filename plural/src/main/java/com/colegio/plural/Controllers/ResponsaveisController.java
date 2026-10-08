@@ -55,4 +55,11 @@ public class ResponsaveisController {
         return repository.findById();
     }
 
+    @GetMapping("/pesquisar")
+    public List<ResponsavelComAlunosDTO> pesquisar(
+            @RequestParam String filtro) {
+
+        return service.pesquisar(filtro);
+    }
+
 }
